@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Array Sorting</title>
+    <script>
+      function descendingSort(arr) {
+        const n = arr.length;
+
+        for (let i = 0; i < n; i++) {
+          let swapped = false;
+
+          for (let j = 0; j < n - i - 1; j++) {
+            if (arr[j] < arr[j + 1]) {
+              [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+              swapped = true;
+            }
+          }
+
+          if (!swapped) {
+            break;
+          }
+        }
+
+        return arr;
+      }
+
+      function sortArray() {
+        const inputElement = document.getElementById("inputArray");
+        const inputValue = inputElement.value.trim();
+        const inputArray = inputValue.split(",").map(Number);
+
+        if (inputArray.some(isNaN)) {
+          alert("Please enter valid numbers separated by commas.");
+          return;
+        }
+        const resultArray = descendingSort(inputArray);
+        const resultElement = document.getElementById("result");
+        resultElement.textContent = "Sorted Array: " + resultArray.join(", ");
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Array Sorting in Descending Order</h1>
+    <label for="inputArray">Enter numbers (comma-separated):</label>
+    <input type="text" id="inputArray" placeholder="e.g., 3, 2, 7, 4, 6, 9" />
+    <button onclick="sortArray()">Sort Array</button>
+    <p id="result"></p>
+  </body>
+</html>

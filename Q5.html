@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Most Repeated Number Finder</title>
+  </head>
+  <body>
+    <h2>Most Repeated Numbers</h2>
+    <label for="numbersInput">Enter numbers (comma-separated):</label>
+    <input type="text" id="numbersInput" />
+    <button onclick="findMostRepeated()">Find Most Repeated Number</button>
+    <p id="result"></p>
+
+    <script>
+      function findMostRepeated() {
+        const inputField = document.getElementById("numbersInput");
+        const resultParagraph = document.getElementById("result");
+
+        const inputArray = inputField.value
+          .split(",")
+          .map((num) => parseInt(num.trim(), 10));
+
+        let countMap = {};
+
+        for (let i = 0; i < inputArray.length; i++) {
+          let num = inputArray[i];
+          countMap[num] = (countMap[num] || 0) + 1;
+        }
+
+        let maxCount = 0;
+        let mostRepeatedNums = [];
+
+        for (let num in countMap) {
+          if (countMap[num] > maxCount) {
+            mostRepeatedNums = [num];
+            maxCount = countMap[num];
+          } else if (countMap[num] === maxCount) {
+            mostRepeatedNums.push(num);
+          }
+        }
+
+        if (mostRepeatedNums.length === 1) {
+          resultParagraph.textContent = `${mostRepeatedNums[0]} is repeated ${maxCount} times. (maximum times among others)`;
+        } else {
+          resultParagraph.textContent = `Numbers ${mostRepeatedNums.join(
+            ", "
+          )} are repeated ${maxCount} times. (maximum times among others)`;
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sum of Two Largest Numbers</title>
+  </head>
+  <body>
+    <h1>Sum of Two Largest Numbers</h1>
+
+    <p>Enter numbers separated by commas:</p>
+    <input type="text" id="inputArray" placeholder="e.g., 3, 7, 1, 5, 11, 19" />
+    <button onclick="calculateSum()">Calculate Sum</button>
+
+    <p id="result"></p>
+
+    <script>
+      function sumOfTwoLargest(arr) {
+        if (arr.length < 2) {
+          return "Array should have at least two elements.";
+        }
+
+        let largest = -Infinity;
+        let secondLargest = -Infinity;
+
+        for (let i = 0; i < arr.length; i++) {
+          let num = parseFloat(arr[i]);
+          if (!isNaN(num)) {
+            if (num > largest) {
+              secondLargest = largest;
+              largest = num;
+            } else if (num > secondLargest && num !== largest) {
+              secondLargest = num;
+            }
+          }
+        }
+
+        return largest + secondLargest;
+      }
+
+      function calculateSum() {
+        const inputArrayElement = document.getElementById("inputArray");
+        const resultElement = document.getElementById("result");
+
+        const inputArray = inputArrayElement.value.split(",");
+
+        const result = sumOfTwoLargest(inputArray);
+
+        resultElement.textContent = `Result: ${result}`;
+      }
+    </script>
+  </body>
+</html>

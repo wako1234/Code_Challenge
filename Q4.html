@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Missing Elements Finder</title>
+</head>
+<body>
+
+    <h2>Missing Elements Finder</h2>
+
+    <form id="inputForm">
+        <label for="arrayInput">Add values <b>(comma-separated):</b></label>
+        <input type="text" id="arrayInput" placeholder="e.g., 3, 7, 1, 5, 11, 19" required>
+        <button type="button" onclick="findMissingElements()">Find Missing Elements</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        function findMissingElements() {
+            const inputArray = document.getElementById('arrayInput').value
+                .split(',')
+                .map(element => parseInt(element.trim(), 10));
+
+            const missingElements = findMissingElementsInArray(inputArray);
+
+            document.getElementById('result').innerText = `Missing elements: [${missingElements}]`;
+        }
+
+        function findMissingElementsInArray(arr) {
+            let max = 0;
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i] > max) {
+                    max = arr[i];
+                }
+            }
+
+            const allElements = [];
+            for (let i = 0; i <= max; i++) {
+                allElements.push(i);
+            }
+
+            const missingElements = [];
+            for (let i = 0; i < allElements.length; i++) {
+                if (!arr.includes(allElements[i])) {
+                    missingElements.push(allElements[i]);
+                }
+            }
+
+            return missingElements;
+        }
+    </script>
+
+</body>
+</html>
